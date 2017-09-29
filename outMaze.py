@@ -29,6 +29,15 @@ class outMazeWindow(arcade.Window):
         arcade.start_render()
         self.player1_sprite.draw()
 
+    def on_key_press(self, key, key_modifiers):
+        self.world.on_key_press(key, key_modifiers)
+
+    def on_key_release(self,key,key_modifiers):
+        self.world.on_key_release(key,key_modifiers)
+
+    def update(self, delta):
+        self.world.update(delta)    
+
 if __name__ == '__main__':
     window = outMazeWindow(SCREEN_WIDTH,SCREEN_HEIGHT)
     arcade.run()
