@@ -31,12 +31,16 @@ class Player(Model):
         self.x += DIR_OFFSET[self.direction][0]
         self.y += DIR_OFFSET[self.direction][1]
 
+class Divide_Screen(Model):
+    def __init__(self,world,x,y):
+       super().__init__(world,x,y)
+
 class World:
     def __init__(self,width,height):
         self.width = width
         self.height = height
-
-        self.player1 = Player(self,width//2,height//2)
+        self.player1 = Player(self,(width//2//2),height//2)
+        self.divide_screen = Divide_Screen(self,width//2,height)
 
     def update(self, delta):
         self.player1.update(delta)

@@ -23,11 +23,13 @@ class outMazeWindow(arcade.Window):
             super().__init__(width,height)
             arcade.set_background_color(arcade.color.BLACK)          
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
+            self.divide_screen = ModelSprite('images\dividescreen.png',model = self.world.divide_screen)
             self.player1_sprite = ModelSprite('images\player2.png',model=self.world.player1)
 
     def on_draw(self):
         arcade.start_render()
         self.player1_sprite.draw()
+        self.divide_screen.draw()
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
