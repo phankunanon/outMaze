@@ -31,6 +31,16 @@ class Player(Model):
         self.x += DIR_OFFSET[self.direction][0]
         self.y += DIR_OFFSET[self.direction][1]
 
+        #Check border
+        if self.x > self.world.width:
+            self.x = self.world.width
+        elif self.x < 0:
+            self.x = 0
+        if self.y > self.world.height:
+            self.y = self.world.height
+        elif self.y < 0:
+            self.y = 0
+
 class Divide_Screen(Model):
     def __init__(self,world,x,y):
        super().__init__(world,x,y)
