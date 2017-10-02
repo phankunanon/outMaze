@@ -49,7 +49,6 @@ class Player(Model):
         elif self.y < 0:
             self.y = 0
 
-        
 class Divide_Screen(Model):
     def __init__(self,world,x,y):
        super().__init__(world,x,y)

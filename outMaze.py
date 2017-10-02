@@ -18,14 +18,14 @@ class ModelSprite(arcade.Sprite):
         self.sync_with_model()
         super().draw()
 
-       
 class outMazeWindow(arcade.Window):
     def __init__(self,width,height):
             super().__init__(width,height)
             arcade.set_background_color(arcade.color.BLACK)          
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
-            self.player1_sprite = ModelSprite('images\Block2.png',model=self.world.player1)
+            self.player1_sprite = ModelSprite('images\Bear.png',model=self.world.player1)
             self.wall =  self.world.wall_list
+
     def on_draw(self):
         arcade.start_render()
         self.player1_sprite.draw()
@@ -40,8 +40,6 @@ class outMazeWindow(arcade.Window):
     def update(self, delta):
         self.world.update(delta)
         
-
-
 if __name__ == '__main__':
     window = outMazeWindow(SCREEN_WIDTH,SCREEN_HEIGHT)
     arcade.run()
