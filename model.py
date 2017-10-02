@@ -27,6 +27,9 @@ class Model:
         self.x = x
         self.y = y
 
+    def hit(self,other,hit_size):
+         return (abs(self.x - other.center_x) <= hit_size) and (abs(self.y - other.center_y) <= hit_size)
+
 class Player(Model):
     def __init__(self,world,x,y):
         super().__init__(world,x,y)
@@ -35,7 +38,7 @@ class Player(Model):
     def update(self,delta):
         self.x += DIR_OFFSET[self.direction][0]
         self.y += DIR_OFFSET[self.direction][1]
-        
+
         #Check border
         if self.x > self.world.width:
             self.x = self.world.width
@@ -66,6 +69,10 @@ class World:
 
     def update(self, delta):
         self.player1.update(delta)
+        for wall in self.wall_list:
+            if self.player1.hit(wall, Block_Size+13):
+                self.player1.x -= DIR_OFFSET[self.player1.direction][0]
+                self.player1.y -= DIR_OFFSET[self.player1.direction][1]
 
     def on_key_press(self, key, key_modifiers):
         self.player1.direction = KEY_OFFSET[key]
