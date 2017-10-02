@@ -16,6 +16,11 @@ KEY_OFFSET = { arcade.key.UP: DIR_UP,
                arcade.key.LEFT: DIR_LEFT,
                arcade.key.RIGHT: DIR_RIGHT}
 
+SCREEN_WIDTH = 1400
+SCREEN_HEIGHT = 600
+Block_Size = 32
+SPRITE_SCALING = 1
+
 class Model:
     def __init__(self,world,x,y):
         self.world = world
@@ -30,7 +35,7 @@ class Player(Model):
     def update(self,delta):
         self.x += DIR_OFFSET[self.direction][0]
         self.y += DIR_OFFSET[self.direction][1]
-
+        
         #Check border
         if self.x > self.world.width:
             self.x = self.world.width
@@ -40,7 +45,8 @@ class Player(Model):
             self.y = self.world.height
         elif self.y < 0:
             self.y = 0
-    
+
+        
 class Divide_Screen(Model):
     def __init__(self,world,x,y):
        super().__init__(world,x,y)
@@ -50,8 +56,14 @@ class World:
         self.width = width
         self.height = height
         self.player1 = Player(self,0,0)
-        self.divide_screen = Divide_Screen(self,width//2,height)
-        
+        self.wall_list = arcade.SpriteList()
+        #divide wall
+        for y in range(0,SCREEN_HEIGHT,Block_Size):
+            wall = arcade.Sprite("images/Block.png", SPRITE_SCALING)
+            wall.center_x = SCREEN_WIDTH//2
+            wall.center_y = y
+            self.wall_list.append(wall)
+
     def update(self, delta):
         self.player1.update(delta)
 
