@@ -5,10 +5,10 @@ DIR_RIGHT = 2
 DIR_DOWN = 3
 DIR_LEFT = 4
 DIR_NOKEY = 0
-DIR_OFFSET = { DIR_UP: (0,10),
-               DIR_RIGHT: (10,0),
-               DIR_DOWN: (0,-10),
-               DIR_LEFT: (-10,0) ,
+DIR_OFFSET = { DIR_UP: (0,5),
+               DIR_RIGHT: (5,0),
+               DIR_DOWN: (0,-5),
+               DIR_LEFT: (-5,0) ,
                DIR_NOKEY:(0,0)}
 
 KEY_OFFSET = { arcade.key.UP: DIR_UP,
@@ -40,7 +40,7 @@ class Player(Model):
             self.y = self.world.height
         elif self.y < 0:
             self.y = 0
-
+    
 class Divide_Screen(Model):
     def __init__(self,world,x,y):
        super().__init__(world,x,y)
@@ -49,9 +49,9 @@ class World:
     def __init__(self,width,height):
         self.width = width
         self.height = height
-        self.player1 = Player(self,(width//2//2),height//2)
+        self.player1 = Player(self,0,0)
         self.divide_screen = Divide_Screen(self,width//2,height)
-
+        
     def update(self, delta):
         self.player1.update(delta)
 
