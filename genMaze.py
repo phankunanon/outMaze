@@ -1,7 +1,7 @@
 import arcade
 import math
 SCREEN_WIDTH = 1400
-SCREEN_HEIGHT = 600
+SCREEN_HEIGHT = 700
 Block_Size = 16
 SPRITE_SCALING = 1
 Body_Size = 36
@@ -10,9 +10,14 @@ class Maze():
         self.maze1 = arcade.SpriteList()
         set_maze = self.Set_wall
         for y in range(5,SCREEN_HEIGHT,Block_Size+15):
-            x = math.floor(Block_Size*SPRITE_SCALING)
+            x = Block_Size
             set_maze(x,y)
-        
+        cnt = 0
+        for x in range(Block_Size*3,SCREEN_WIDTH//2 - Block_Size,Block_Size+15):
+            y = SCREEN_HEIGHT-Block_Size
+            if cnt != 4 and cnt != 5 :
+                set_maze(x,y)
+            cnt+=1
         set_maze(48,100)
 
         set_maze(80,100)
@@ -44,12 +49,25 @@ class Maze():
         
         set_maze(368,100)
         
-        set_maze(400,100)   
+        set_maze(400,100)
+        set_maze(400,196)
+        set_maze(400,228)
+        set_maze(400,292)
+        set_maze(400,260)
+        set_maze(400,292)
+        set_maze(400,324)
+        set_maze(400,356)   
         set_maze(400,388)
         set_maze(400,420)
         set_maze(400,452)
         set_maze(400,484)
-        
+        set_maze(400,516)
+        set_maze(400,548)
+        set_maze(400,570)
+        set_maze(400,602)
+        set_maze(400,634)
+        set_maze(400,666)
+
         set_maze(432,100)
         set_maze(432,484)
 
@@ -70,6 +88,7 @@ class Maze():
         set_maze(496,388)
         set_maze(496,484)
 
+
         set_maze(528,100)
         set_maze(528,292)
         set_maze(528,484)
@@ -89,6 +108,7 @@ class Maze():
         set_maze(624,196)
         
         set_maze(656,196)
+
     def Set_wall(self,x,y):
         wall = arcade.Sprite("images/Block2.png", SPRITE_SCALING)
         wall.center_x = x
