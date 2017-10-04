@@ -5,11 +5,7 @@ DIR_RIGHT = 2
 DIR_DOWN = 3
 DIR_LEFT = 4
 DIR_NOKEY = 0
-DIR_OFFSET = { DIR_UP: (0,5),
-               DIR_RIGHT: (5,0),
-               DIR_DOWN: (0,-5),
-               DIR_LEFT: (-5,0) ,
-               DIR_NOKEY:(0,0)}
+Move_Speed = 4
 
 Key_OFFSET = { arcade.key.UP: DIR_UP,
                arcade.key.DOWN: DIR_DOWN,
@@ -38,6 +34,15 @@ class Player(Model):
         self.direction = DIR_NOKEY
 
     def update(self,delta):
+        if self.direction == DIR_UP:
+            self.delta_y = Move_Speed
+        elif self.direction == DIR_DOWN:
+            self.delta_y = Move_Speed*-1
+        if self.direction == DIR_RIGHT:
+            self.delta_x = Move_Speed
+        elif self.direction == DIR_LEFT:
+            self.delta_x = Move_Speed*-1
+
         self.x += self.delta_x
         self.y += self.delta_y
 
@@ -58,30 +63,25 @@ class World:
         self.player1 = Player(self,36*2,36*2)
         #self.wall_list = arcade.SpriteList()
         self.wall_mazepl1 = arcade.SpriteList()
-        #divide wall
-        '''for y in range(Block_Size//2,SCREEN_HEIGHT,Block_Size):
-            wall = arcade.Sprite("images/Block.png", SPRITE_SCALING)
-            wall.center_x = SCREEN_WIDTH//2+1
-            wall.center_y = y
-            self.wall_list.append(wall)
-'''
+
         #Gen_maze
         self.wall_mazepl1 = Maze().maze1
 
     def update(self, delta):
         self.player1.update(delta)
-        '''for wall in self.wall_list:
-            if self.player1.hit(wall, Block_Size):
-                self.player1.x -= DIR_OFFSET[self.player1.direction][0]
-                self.player1.y -= DIR_OFFSET[self.player1.direction][1]
-        '''
+
         for wall in self.wall_mazepl1:
             if self.player1.hit(wall, 32):
-                self.player1.x -= DIR_OFFSET[self.player1.direction][0]
-                self.player1.y -= DIR_OFFSET[self.player1.direction][1]
+                self.player1.x -= self.player1.delta_x
+                self.player1.y -= self.player1.delta_y
         
     def on_key_press(self, key, key_modifiers):
         self.player1.direction = Key_OFFSET[key]
     
     def on_key_release(self,key,key_modifiers):
-        self.player1.direction = DIR_NOKEY
+        if key == arcade.key.UP or key == arcade.key.DOWN:
+            self.player1.delta_y = 0
+            self.player1.direction = DIR_NOKEY
+        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
+            self.player1.delta_x = 0
+            self.player1.direction = DIR_NOKEY
