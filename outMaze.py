@@ -25,12 +25,13 @@ class outMazeWindow(arcade.Window):
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.player1_sprite = ModelSprite('images\Bear.png',model=self.world.player1)
             self.wall =  self.world.wall_list
-
+            self.wall_mazepl1 = self.world.wall_mazepl1
+ 
     def on_draw(self):
         arcade.start_render()
         self.player1_sprite.draw()
         self.wall.draw()
-
+        self.wall_mazepl1.draw()
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
