@@ -1,5 +1,6 @@
 import arcade
 import math
+# Not use this code
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 700
 Block_Size = 16
