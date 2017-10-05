@@ -1,9 +1,10 @@
 import arcade
 from model import World
-SCREEN_WIDTH = 1750
-SCREEN_HEIGHT = 900
-Block_Size = 32
-SPRITE_SCALING = 1
+from Setup import set_up
+SCREEN_WIDTH = set_up().SCREEN_WIDTH
+SCREEN_HEIGHT = set_up().SCREEN_HEIGHT
+Block_Size = set_up().Block_Size
+SPRITE_SCALING = set_up().SPRITE_SCALING
 class ModelSprite(arcade.Sprite):
     def __init__(self,*args,**kwargs):
         self.model = kwargs.pop('model',None)
@@ -25,7 +26,6 @@ class outMazeWindow(arcade.Window):
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.player1_sprite = ModelSprite('images\Bear.png',model=self.world.player1)
             self.player2_sprite = ModelSprite('images\pig.png',model=self.world.player2)
-            #self.wall =  self.world.wall_list
             self.wall_maze = self.world.wall_maze
  
     def on_draw(self):

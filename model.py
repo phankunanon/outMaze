@@ -1,28 +1,11 @@
 import arcade.key
 from genMaze2 import Maze
-DIR_UP = 1
-DIR_RIGHT = 2
-DIR_DOWN = 3
-DIR_LEFT = 4
-DIR_NOKEY = 0
-Move_Speed = 4
-
-Key_OFFSET = { arcade.key.W: DIR_UP,
-               arcade.key.S: DIR_DOWN,
-               arcade.key.A: DIR_LEFT,
-               arcade.key.D: DIR_RIGHT,
-                }
-Key2_OFFSET = {arcade.key.UP: DIR_UP,
-               arcade.key.DOWN: DIR_DOWN,
-               arcade.key.LEFT: DIR_LEFT,
-               arcade.key.RIGHT: DIR_RIGHT,
-               }
-
-SCREEN_WIDTH = 1750
-SCREEN_HEIGHT = 900
-Block_Size = 64
-SPRITE_SCALING = 1
-
+from Setup import set_up
+SCREEN_WIDTH = set_up().SCREEN_WIDTH
+SCREEN_HEIGHT = set_up().SCREEN_HEIGHT
+Block_Size = set_up().Block_Size
+SPRITE_SCALING = set_up().SPRITE_SCALING
+Move_Speed = set_up().Move_Speed
 class Model:
     def __init__(self,world,x,y):
         self.world = world
@@ -59,7 +42,6 @@ class World:
         self.height = height
         self.player1 = Player(self,36*2,36*2)
         self.player2 = Player(self,SCREEN_WIDTH//2 +36*2,36*2)
-        #self.wall_list = arcade.SpriteList()
         self.wall_maze = arcade.SpriteList()
 
         #Gen_maze
@@ -101,14 +83,10 @@ class World:
         
         if key == arcade.key.W or key == arcade.key.S:
             self.player1.delta_y = 0
-            self.player1.direction = DIR_NOKEY
         elif key == arcade.key.D or key == arcade.key.A:
             self.player1.delta_x = 0
-            self.player1.direction = DIR_NOKEY
 
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.player2.delta_y = 0
-            self.player2.direction = DIR_NOKEY
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player2.delta_x = 0
-            self.player2.direction = DIR_NOKEY

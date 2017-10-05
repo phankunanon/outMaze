@@ -1,11 +1,12 @@
 import arcade
 import math
-SCREEN_WIDTH = 1750
-SCREEN_HEIGHT = 900
-Block_Size = 16
-SPRITE_SCALING = 1.2
-Body_Size = 36
-Map_Size = 25
+from Setup import set_up
+SCREEN_WIDTH = set_up().SCREEN_WIDTH
+SCREEN_HEIGHT = set_up().SCREEN_HEIGHT
+Block_Size = set_up().Block_Size
+SPRITE_SCALING = set_up().SPRITE_SCALING
+Body_Size = set_up().Body_Size
+Map_Size = set_up().Map_Size
 class Maze():
     def __init__(self):
         self.maze = arcade.SpriteList()
