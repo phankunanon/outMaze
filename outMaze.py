@@ -22,7 +22,7 @@ class ModelSprite(arcade.Sprite):
 class outMazeWindow(arcade.Window):
     def __init__(self,width,height):
             super().__init__(width,height)
-            arcade.set_background_color(arcade.color.BLACK)          
+            arcade.set_background_color(arcade.color.LIGHT_TAUPE)          
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.player1_sprite = ModelSprite('images\Bear.png',model=self.world.player1)
             self.player2_sprite = ModelSprite('images\pig.png',model=self.world.player2)
@@ -30,9 +30,10 @@ class outMazeWindow(arcade.Window):
  
     def on_draw(self):
         arcade.start_render()
+        self.wall_maze.draw()
+        self.world.warb.draw()
         self.player1_sprite.draw()
         self.player2_sprite.draw()
-        self.wall_maze.draw()
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)

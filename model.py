@@ -1,5 +1,5 @@
 import arcade.key
-from genMaze2 import Maze
+from genMaze import Maze
 from Setup import set_up
 SCREEN_WIDTH = set_up().SCREEN_WIDTH
 SCREEN_HEIGHT = set_up().SCREEN_HEIGHT
@@ -46,6 +46,7 @@ class World:
 
         #Gen_maze
         self.wall_maze = Maze().maze
+        self.warb = Maze().warb
 
     def update(self, delta):
         self.player1.update(delta)
@@ -55,7 +56,7 @@ class World:
             if self.player1.hit(wall, 32):
                 self.player1.x -= self.player1.delta_x
                 self.player1.y -= self.player1.delta_y
-        for wall in self.wall_maze:
+                
             if self.player2.hit(wall, 32):
                 self.player2.x -= self.player2.delta_x
                 self.player2.y -= self.player2.delta_y
