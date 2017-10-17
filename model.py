@@ -1,4 +1,5 @@
 import arcade.key
+from random import randint
 from genMaze import Maze
 from Setup import set_up
 SCREEN_WIDTH = set_up().SCREEN_WIDTH
@@ -43,21 +44,32 @@ class World:
         self.player1 = Player(self,36*2,36*2)
         self.player2 = Player(self,SCREEN_WIDTH//2 +36*2,36*2)
         self.wall_maze = arcade.SpriteList()
-
+        self.item = arcade.SpriteList()
+        self.mark = [0,0,0,0,0,0,0,0,0,0]
         #Gen_maze
         self.wall_maze = Maze().maze
         self.warb = Maze().warb
+        self.item1 = Maze().item1
+        self.item2 = Maze().item2
+        
+        while len(self.item)<6 :
+            num = randint(0,6)
+            while self.mark[num] != 0:
+                num = randint(0,6)
+            self.mark[num]=1
+            self.item.append(self.item1[num])
+            self.item.append(self.item2[num])
 
     def update(self, delta):
         self.player1.update(delta)
         self.player2.update(delta)
 
         for wall in self.wall_maze:
-            if self.player1.hit(wall, 32):
+            if self.player1.hit(wall, 45):
                 self.player1.x -= self.player1.delta_x
                 self.player1.y -= self.player1.delta_y
                 
-            if self.player2.hit(wall, 32):
+            if self.player2.hit(wall, 45):
                 self.player2.x -= self.player2.delta_x
                 self.player2.y -= self.player2.delta_y
         

@@ -32,6 +32,7 @@ class outMazeWindow(arcade.Window):
         arcade.start_render()
         self.wall_maze.draw()
         self.world.warb.draw()
+        self.world.item.draw()
         self.player1_sprite.draw()
         self.player2_sprite.draw()
 

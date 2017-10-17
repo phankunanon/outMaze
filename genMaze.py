@@ -11,6 +11,8 @@ class Maze():
     def __init__(self):
         self.maze = arcade.SpriteList()
         self.warb = arcade.SpriteList()
+        self.item1 = arcade.SpriteList()
+        self.item2 = arcade.SpriteList()
         set_maze = self.Set_wall
         
         map_string = (
@@ -19,9 +21,9 @@ class Maze():
             "#.............#.........#",
             "#..#..#########..#####..#",
             "#..#..#....#.X#......#..#",
-            "#..#..#...w#..#......#..#",
+            "#..#..#..w.#..#......#..#",
             "#..#..#..###..#####..#..#",
-            "#..#..#..X.#.........#..#",
+            "#..#..#...X#.........#..#",
             "#..#..#....#.........#..#",
             "#..#..###..#...#######..#",
             "#..#.......#...#.....#..#",
@@ -33,8 +35,8 @@ class Maze():
             "#..#...........#..#.....#",
             "#..#...........#..#.....#",
             "#..#..######...#..#..####",
-            "#X....#....#......#.....#",
-            "#.....#..w.#....X.#.....#",
+            "#.X...#....#....X.#.....#",
+            "#.....#..w.#......#.....#",
             "#######..############...#",
             "#.......................#",
             "#.......................#",
@@ -44,6 +46,8 @@ class Maze():
             for y in range (0,Map_Size) :
                 if map_string[Map_Size-1-x][y] == ".":
                     continue
+                elif map_string[Map_Size-1-x][y] == "X":
+                    set_maze(y*Body_Size-10,x*Body_Size-10,"images/superball.png",1.5)
                 elif map_string[Map_Size-1-x][y] == "w":
                     set_maze(y*Body_Size,x*Body_Size+17,"images/wab.jpg",0.175)
                 else :
@@ -56,8 +60,10 @@ class Maze():
 
         if name_pic == "images/Block2.png":
             self.maze.append(wall)
-        else :
+        elif name_pic == "images/wab.jpg" :
             self.warb.append(wall)
+        else :
+            self.item1.append(wall)
 
         wall2 = arcade.Sprite(name_pic, scaling)
         wall2.center_x = x+Body_Size//2 + SCREEN_WIDTH//2 - 10
@@ -65,5 +71,7 @@ class Maze():
 
         if name_pic == "images/Block2.png":
             self.maze.append(wall2)
-        else :
+        elif name_pic == "images/wab.jpg" :
             self.warb.append(wall2)
+        else :
+            self.item2.append(wall2)
