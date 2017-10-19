@@ -26,13 +26,15 @@ class outMazeWindow(arcade.Window):
             self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.player1_sprite = ModelSprite('images\Bear.png',model=self.world.player1)
             self.player2_sprite = ModelSprite('images\pig.png',model=self.world.player2)
-            self.wall_maze = self.world.wall_maze
- 
+
     def on_draw(self):
         arcade.start_render()
-        self.wall_maze.draw()
-        self.world.warb.draw()
-        self.world.item.draw()
+        self.world.wall_maze1.draw()
+        self.world.warb1.draw()
+        self.world.wall_maze2.draw()
+        self.world.warb2.draw()
+        self.world.item1.draw()
+        self.world.item2.draw()
         if not(self.world.player2.win):
             self.player1_sprite.draw()
         if not(self.world.player1.win):

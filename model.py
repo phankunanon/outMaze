@@ -8,7 +8,7 @@ Block_Size = set_up().Block_Size
 SPRITE_SCALING = set_up().SPRITE_SCALING
 Move_Speed = set_up().Move_Speed
 class Model:
-    def __init__(self,world,x,y,wall,warb,item):
+    def __init__(self,world,x,y):
         self.world = world
         self.x = x
         self.y = y
@@ -16,16 +16,14 @@ class Model:
         self.delta_y = 0
         self.count = 0
         self.press_up = False
-        self.wall_maze = wall
-        self.warb = warb
-        self.item = item
         self.win = False
+        self.got_warb = False
     def hit(self,other,hit_size):
          return (abs(self.x - other.center_x) <= hit_size) and (abs(self.y - other.center_y) <= hit_size)
 
 class Player(Model):
-    def __init__(self,world,x,y,wall,warb,item):
-        super().__init__(world,x,y,wall,warb,item)
+    def __init__(self,world,x,y):
+        super().__init__(world,x,y)
 
     def update(self,delta):
 
@@ -42,45 +40,70 @@ class Player(Model):
         elif self.y < 0:
             self.y = 0
 
-        for wall in self.wall_maze:
-            if self.hit(wall, 45):
+        for wall in self.world.wall_maze1:
+            if self.hit(wall, 40):
+                self.x -= self.delta_x
+                self.y -= self.delta_y
+        for wall in self.world.wall_maze2:
+            if self.hit(wall, 40):
                 self.x -= self.delta_x
                 self.y -= self.delta_y
                 
-        for i in self.item:
+        for i in self.world.item1:
             if self.hit(i, 45):
                 i.kill()
                 self.count += 1
 
-        for i in self.warb:
-            if self.hit(i,45) and self.count == 3 and self.press_up:
+        for i in self.world.item2:
+            if self.hit(i, 45):
+                i.kill()
+                self.count += 1
+        warb1 = 0
+        warb2 = 0
+        for i in self.world.warb1:
+            if self.hit(i,20) and self.count == 3 and self.press_up and (self.world.true_warb1 == warb1):
                 print("Ch ")
                 self.win = True
+            warb1 += 1
+
+        for i in self.world.warb2:
+            if self.hit(i,20) and self.count == 3 and self.press_up and (self.world.true_warb2 == warb2) :
+                print("Ch ")
+                self.win = True
+            warb2 += 1
 
 class World:
     def __init__(self,width,height):
         self.width = width
         self.height = height
         self.wall_maze = arcade.SpriteList()
-        self.item = arcade.SpriteList()
         self.mark = [0,0,0,0,0,0,0,0,0,0]
         #Gen_maze
         #self.wall_maze
-        self.wall_maze = Maze().maze
-        self.warb = Maze().warb
-        self.item1 = Maze().item1
-        self.item2 = Maze().item2
-
-        while len(self.item)<6 :
+        self.wall_maze1 = Maze().maze1
+        self.wall_maze2 = Maze().maze2
+        self.warb1 = Maze().warb1
+        self.warb2 = Maze().warb2
+        self.Item1 = Maze().item1
+        self.Item2 = Maze().item2
+        self.item1 = arcade.SpriteList()
+        self.item2 = arcade.SpriteList()
+        num1 = randint(0,2)
+        num2 = randint(0,2)
+        self.true_warb1 = num1
+        self.true_warb2 = num2
+        print(num1)
+        print(num2)
+        while len(self.item1)+len(self.item2)<6 :
             num = randint(0,5)
             while self.mark[num] != 0:
                 num = randint(0,5)
             self.mark[num]=1
-            self.item.append(self.item1[num])
-            self.item.append(self.item2[num])
+            self.item1.append(self.Item1[num])
+            self.item2.append(self.Item2[num])
 
-        self.player1 = Player(self,36*2,36*2,self.wall_maze,self.warb,self.item)
-        self.player2 = Player(self,SCREEN_WIDTH//2 +36*2,36*2,self.wall_maze,self.warb,self.item)
+        self.player1 = Player(self,36*2,36*2)
+        self.player2 = Player(self,SCREEN_WIDTH//2 +36*2,36*2)
 
 
     def update(self, delta):

@@ -9,8 +9,10 @@ Body_Size = set_up().Body_Size
 Map_Size = set_up().Map_Size
 class Maze():
     def __init__(self):
-        self.maze = arcade.SpriteList()
-        self.warb = arcade.SpriteList()
+        self.maze1 = arcade.SpriteList()
+        self.warb1 = arcade.SpriteList()
+        self.maze2 = arcade.SpriteList()
+        self.warb2 = arcade.SpriteList()
         self.item1 = arcade.SpriteList()
         self.item2 = arcade.SpriteList()
         set_maze = self.Set_wall
@@ -59,9 +61,9 @@ class Maze():
         wall.center_y = y+Body_Size//2
 
         if name_pic == "images/Block2.png":
-            self.maze.append(wall)
+            self.maze1.append(wall)
         elif name_pic == "images/wab.jpg" :
-            self.warb.append(wall)
+            self.warb1.append(wall)
         else :
             self.item1.append(wall)
 
@@ -70,8 +72,8 @@ class Maze():
         wall2.center_y = y+Body_Size//2
 
         if name_pic == "images/Block2.png":
-            self.maze.append(wall2)
+            self.maze2.append(wall2)
         elif name_pic == "images/wab.jpg" :
-            self.warb.append(wall2)
+            self.warb2.append(wall2)
         else :
             self.item2.append(wall2)
