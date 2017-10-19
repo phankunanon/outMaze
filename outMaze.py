@@ -33,8 +33,10 @@ class outMazeWindow(arcade.Window):
         self.wall_maze.draw()
         self.world.warb.draw()
         self.world.item.draw()
-        self.player1_sprite.draw()
-        self.player2_sprite.draw()
+        if not(self.world.player2.win):
+            self.player1_sprite.draw()
+        if not(self.world.player1.win):
+            self.player2_sprite.draw()
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
