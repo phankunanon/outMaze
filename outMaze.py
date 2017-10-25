@@ -39,7 +39,12 @@ class outMazeWindow(arcade.Window):
             self.player1_sprite.draw()
         if not(self.world.player1.win):
             self.player2_sprite.draw()
-
+        if self.world.player1.win or self.world.player2.win :
+            if self.world.player1.win:
+                arcade.draw_text("Bear wins", SCREEN_WIDTH//2-250, SCREEN_HEIGHT//2, arcade.color.BLACK,100)
+            if self.world.player2.win:
+                arcade.draw_text("Pig wins", SCREEN_WIDTH//2-250, SCREEN_HEIGHT//2, arcade.color.BLACK,100)
+                
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
