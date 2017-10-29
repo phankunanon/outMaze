@@ -62,13 +62,13 @@ class Player(Model):
         warb2 = 0
         for i in self.world.warb1:
             if self.hit(i,20) and self.count == 3 and self.press_up and (self.world.true_warb1 == warb1):
-                print("Ch ")
+                #print("Ch ")
                 self.win = True
             warb1 += 1
 
         for i in self.world.warb2:
             if self.hit(i,20) and self.count == 3 and self.press_up and (self.world.true_warb2 == warb2) :
-                print("Ch ")
+                #print("Ch ")
                 self.win = True
             warb2 += 1
 
@@ -92,8 +92,8 @@ class World:
         num2 = randint(0,2)
         self.true_warb1 = num1
         self.true_warb2 = num2
-        print(num1)
-        print(num2)
+        #print(num1)
+        #print(num2)
         while len(self.item1)+len(self.item2)<6 :
             num = randint(0,5)
             while self.mark[num] != 0:
